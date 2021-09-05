@@ -49,6 +49,8 @@
 #pokedex .buttonsFilter {
   width: 360px;
   margin: 20px;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 #pokedex .buttonsFilter button {
@@ -70,6 +72,7 @@
   background-color: rgb(243, 243, 243);
   display: flex;
   align-items: center;
+  justify-content: center;
   border-radius: 10px;
   margin: 20px;
   width: 360px;
@@ -89,4 +92,23 @@
 
 .pokemon img {
   width: 150px;
+}
+
+@media only screen and (max-width: 500px) {
+  .App {
+    width: 100%;
+  }
+
+  .pokemon {
+    width: 90%;
+  }
+
+  #pokedex .buttonsFilter {
+    width: 90%;
+    justify-content: center;
+  }
+
+  #pokedex .buttonsFilter button {
+    width: 45%;
+  }
 }

@@ -6,10 +6,12 @@ import listPokemons from './data';
 
 class App extends React.Component {
   render() {
+    const types = listPokemons.map((pokemon) => pokemon.type);
+    const correctedTypes = types.filter((type, i) => types.indexOf(type) === i);
     return (
       <div className="App">
         <h1>Pokedex</h1>
-        <Pokedex data={listPokemons}/>
+        <Pokedex data={listPokemons} types={correctedTypes}/>
       </div>
     );
   }

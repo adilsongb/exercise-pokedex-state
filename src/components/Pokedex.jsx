@@ -1,14 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Pokemon from './Pokemon';
+import ButtonFilter from './ButtonFilter';
 
 class Pokedex extends React.Component {
   constructor(props) {
     super(props);
     this.nextPokemon = this.nextPokemon.bind(this);
+    this.filterPokemons = this.filterPokemons.bind(this);
     this.state = {
       index: 0,
-      pokemons: this.props.data
+      pokemons: this.props.data,
+      filter: 'All'
     }
   }
 
@@ -34,11 +37,17 @@ class Pokedex extends React.Component {
     event.target.style.color = 'white';
 
     if (filter === 'All') {
-      this.setState({ pokemons: this.props.data });
+      this.setState({ 
+        pokemons: this.props.data,
+        filter: filter
+      });
       btnNextPokemon.removeAttribute("disabled");
     } else {
       this.setState(
-        { pokemons: this.props.data.filter((pokemon) => pokemon.type === filter) },
+        { 
+          pokemons: this.props.data.filter((pokemon) => pokemon.type === filter),
+          filter: filter
+        },
         () => {
           if (this.state.pokemons.length === 1) {
             btnNextPokemon.setAttribute("disabled", "disabled");
@@ -56,14 +65,7 @@ class Pokedex extends React.Component {
       <div id="pokedex">
         <Pokemon pokemon={pokemons[index]} colorType={pokemons[index].type}/>
         <div className="buttonsFilter">
-          <button onClick={(event) => this.filterPokemons(event, 'All')}>All</button>
-          <button onClick={(event) => this.filterPokemons(event, 'Electric')}>Electric</button>
-          <button onClick={(event) => this.filterPokemons(event, 'Fire')}>Fire</button>
-          <button onClick={(event) => this.filterPokemons(event, 'Bug')}>Bug</button>
-          <button onClick={(event) => this.filterPokemons(event, 'Poison')}>Poison</button>
-          <button onClick={(event) => this.filterPokemons(event, 'Psychic')}>Psychic</button>
-          <button onClick={(event) => this.filterPokemons(event, 'Normal')}>Normal</button>
-          <button onClick={(event) => this.filterPokemons(event, 'Dragon')}>Dragon</button>
+          <ButtonFilter filterPokemons={this.filterPokemons} types={this.props.types} />
         </div>
         <button onClick={this.nextPokemon}>Próximo Pokemon</button>
       </div>
